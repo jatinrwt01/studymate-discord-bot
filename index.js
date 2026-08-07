@@ -16,3 +16,7 @@ client.login(process.env.DISCORD_BOT_TOKEN);
 client.on("clientReady", ()=>{
     console.log("Bot is online!");
 })
+
+client.on("messageCreate", (msg)=>{
+    console.log(msg.content);
+})
