@@ -18,5 +18,9 @@ client.on("clientReady", ()=>{
 })
 
 client.on("messageCreate", (msg)=>{
-    console.log(msg.content);
+    if(msg.author.bot) return;
+    if(msg.content === "!ping"){
+       return msg.reply("Pong");
+    }
+    msg.reply(`Hello, ${msg.author}`);
 })
