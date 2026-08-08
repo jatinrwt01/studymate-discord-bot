@@ -1,5 +1,7 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import dotenv from "dotenv";
+import { pingCommand } from "./commands/ping.js";
+import { helloCommand } from "./commands/hello.js";
 
 dotenv.config();
 
@@ -34,10 +36,6 @@ function handleCommand(msg){
     }
 }
 
-function pingCommand(msg){
-    return msg.reply("Pong");
-}
 
-function helloCommand(msg){
-    return msg.reply(`Hello ${msg.author}`);
-}
+
+
