@@ -18,9 +18,26 @@ client.on("clientReady", ()=>{
 })
 
 client.on("messageCreate", (msg)=>{
-    if(msg.author.bot) return;
-    if(msg.content === "!ping"){
-       return msg.reply("Pong");
-    }
-    msg.reply(`Hello, ${msg.author}`);
+    handleCommand(msg);
 })
+
+const commands = {
+    "!ping": pingCommand,
+    "!hello": helloCommand,
+}
+
+function handleCommand(msg){
+    if(msg.author.bot) return;
+    const command = commands[msg.content];
+    if(command){
+    return command(msg);
+    }
+}
+
+function pingCommand(msg){
+    return msg.reply("Pong");
+}
+
+function helloCommand(msg){
+    return msg.reply(`Hello ${msg.author}`);
+}
