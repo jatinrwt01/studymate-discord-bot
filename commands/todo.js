@@ -4,8 +4,6 @@ export const todo = {
     execute: function todoCommand(msg, args){
         const subcommand = args[0];
         const task = args.slice(1).join(" ");
-        console.log("subcommand:", subcommand);
-        console.log("task:", task);
         if(subcommand === "add"){
             if(task == ""){
                 return msg.reply("Please provide a task");

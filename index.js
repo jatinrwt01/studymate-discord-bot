@@ -1,6 +1,7 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import dotenv from "dotenv";
 import fs from "fs";
+import { connectDB } from "./connection/connect.js";
 
 dotenv.config();
 
@@ -26,7 +27,6 @@ for(const file of files){
 function handleCommand(msg){
     if(msg.author.bot) return;
     const parts = msg.content.split(" ");
-    console.log(parts);
     const commandName = parts[0];
     const args = parts.slice(1);
     const command = commands[commandName];
@@ -38,6 +38,7 @@ function handleCommand(msg){
 
 async function startBot(){
     await loadCommands();
+    await connectDB(process.env.MONGODB_URL);
 
     client.on("clientReady", ()=>{
     console.log("Bot is online!");
@@ -48,7 +49,6 @@ async function startBot(){
 })
 
     await client.login(process.env.DISCORD_BOT_TOKEN);  
-    console.log(commands); 
 }
 
 startBot();
