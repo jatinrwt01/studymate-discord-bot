@@ -25,9 +25,13 @@ for(const file of files){
 
 function handleCommand(msg){
     if(msg.author.bot) return;
-    const command = commands[msg.content];
-    if(command){
-        return command.execute(msg);
+    const parts = msg.content.split(" ");
+    console.log(parts);
+    const commandName = parts[0];
+    const args = parts.slice(1);
+    const command = commands[commandName];
+        if(command){
+        return command.execute(msg,args);
     }
 }
 
