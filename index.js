@@ -1,7 +1,7 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import dotenv from "dotenv";
-import { pingCommand } from "./commands/ping.js";
-import { helloCommand } from "./commands/hello.js";
+import { ping } from "./commands/ping.js";
+import { hello } from "./commands/hello.js";
 
 dotenv.config();
 
@@ -19,20 +19,20 @@ client.on("clientReady", ()=>{
     console.log("Bot is online!");
 })
 
+
+const commands = {};
+commands["!ping"] = ping;
+commands["!hello"] = hello;
 client.on("messageCreate", (msg)=>{
     handleCommand(msg);
 })
 
-const commands = {
-    "!ping": pingCommand,
-    "!hello": helloCommand,
-}
-
 function handleCommand(msg){
     if(msg.author.bot) return;
     const command = commands[msg.content];
+    console.log(command);
     if(command){
-    return command(msg);
+        return command.execute(msg);
     }
 }
 
