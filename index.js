@@ -21,8 +21,8 @@ client.on("clientReady", ()=>{
 
 
 const commands = {};
-commands["!ping"] = ping;
-commands["!hello"] = hello;
+commands[ping.name] = ping;
+commands[hello.name] = hello;
 client.on("messageCreate", (msg)=>{
     handleCommand(msg);
 })
