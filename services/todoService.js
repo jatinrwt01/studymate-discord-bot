@@ -13,3 +13,8 @@ export const getTodos = async (userId)=>{
     const userTodos = await todoModel.find({userId});
     return userTodos;
 }
+
+export const completeTodo = async (userId, todoId)=>{
+     const updatedTodo = await todoModel.findOneAndUpdate({userId, _id : todoId}, {completed:true}, {new: true});
+     return updatedTodo;
+}
