@@ -8,3 +8,8 @@ export const addTodo = async (userId, task)=>{
         }
     )
 }
+
+export const getTodos = async (userId)=>{
+    const userTodos = await todoModel.find({userId});
+    return userTodos;
+}
