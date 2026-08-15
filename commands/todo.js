@@ -1,4 +1,4 @@
-import { addTodo, completeTodo, getTodos } from "../services/todoService.js";
+import { addTodo, completeTodo, getTodos, deleteTodo } from "../services/todoService.js";
 export const todo = {
     name: "!todo",
     description: "Manage your study tasks",
@@ -56,7 +56,33 @@ export const todo = {
                 console.log(err);
                 return msg.reply("Couldn't mark your todo as done");
             }
-        } else{
+        } else if(subcommand === "delete"){
+            if(task.trim() === ""){
+                return msg.reply("Please provide a task number to delete");
+            }
+            const taskNumber = Number(task);
+            if(!taskNumber || isNaN(taskNumber) || taskNumber<=0 ||!Number.isInteger(taskNumber)){
+                return msg.reply("Please provide a valid task number to delete");
+            }
+            const zeroBasedTaskNumber = taskNumber-1;
+            try{
+            const userTodos = await getTodos(msg.author.id);
+            if(zeroBasedTaskNumber >= userTodos.length){
+                return msg.reply("Please provide a valid task number");
+            }
+            const targetTodo = userTodos[zeroBasedTaskNumber]; 
+            const deletedTodo = await deleteTodo(msg.author.id, targetTodo._id);
+            if(deletedTodo){
+            return msg.reply(`✅ Deleted Successfully: ${targetTodo.task}`);
+            } else{
+                return msg.reply("Couldn't delete your task");
+            }
+            }catch(err){
+                console.log(err);
+                return msg.reply("Couldn't delete your task");
+            }
+        }
+        else{
             return msg.reply("Unknown todo command");
         }
     }
