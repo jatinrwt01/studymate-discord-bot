@@ -2,6 +2,7 @@ import { Client, GatewayIntentBits } from "discord.js";
 import dotenv from "dotenv";
 import fs from "fs";
 import { connectDB } from "./connection/connect.js";
+import startReminderScheduler from "./scheduler/reminder.js";
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ function handleCommand(msg){
 async function startBot(){
     await loadCommands();
     await connectDB(process.env.MONGODB_URL);
+    startReminderScheduler(client);
 
     client.on("clientReady", ()=>{
     console.log("Bot is online!");
@@ -52,6 +54,8 @@ async function startBot(){
 }
 
 startBot();
+
+
 
 
 
