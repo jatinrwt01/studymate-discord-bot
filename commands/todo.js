@@ -81,7 +81,7 @@ export const todo = {
                 console.log(err);
                 return msg.reply("Couldn't delete your task");
             }
-        }
+        } 
         else{
             return msg.reply("Unknown todo command");
         }
